@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ═══ SEO META TAGS ═══ -->
+<title>CalcPro – Free Online Calculator | EMI, GST, Currency, Scientific</title>
+<meta name="description" content="Free all-in-one calculator: Basic, Scientific, EMI, GST, Compound Interest, Currency Converter, Unit Converter. Fast, accurate, mobile-friendly." />
+<meta name="keywords" content="online calculator, EMI calculator, GST calculator, currency converter, scientific calculator, compound interest, unit converter, free calculator" />
+<meta name="author" content="CalcPro" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://YOUR-SITE-URL.com/calcpro.html" />
+
+<!-- Open Graph (for social sharing) -->
+<meta property="og:title" content="CalcPro – Free Online Calculator" />
+<meta property="og:description" content="EMI, GST, Currency, Scientific & Unit Converter – all in one place." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://YOUR-SITE-URL.com/calcpro.html" />
+<meta property="og:image" content="https://YOUR-SITE-URL.com/calcpro-og.png" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="CalcPro – Free Online Calculator" />
+<meta name="twitter:description" content="EMI, GST, Currency, Scientific & Unit Converter in one app." />
+
+<!-- ═══ GOOGLE ADSENSE ═══
+  STEP: Replace ca-pub-XXXXXXXXXXXXXXXX with your real AdSense Publisher ID
+  Get it from: https://www.google.com/adsense → Account → Account information
+-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0f14;
+  --surface: #161920;
+  --surface2: #1e2230;
+  --surface3: #252a3a;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --text: #f0f2f8;
+  --muted: #8b92a8;
+  --hint: #4e5568;
+  --accent: #5b8def;
+  --accent2: #3d6fd8;
+  --accent-glow: rgba(91,141,239,0.2);
+  --green: #4caf7d;
+  --green-bg: rgba(76,175,125,0.12);
+  --amber: #f0a830;
+  --amber-bg: rgba(240,168,48,0.12);
+  --red: #e05555;
+  --red-bg: rgba(224,85,85,0.12);
+  --purple: #9b7fe8;
+  --mono: 'DM Mono', monospace;
+  --sans: 'Outfit', sans-serif;
+}
+html,body { min-height:100vh; background:var(--bg); color:var(--text); font-family:var(--sans); font-size:15px; line-height:1.5; }
+body::before {
+  content:''; position:fixed; inset:0;
+  background-image: linear-gradient(rgba(91,141,239,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(91,141,239,0.03) 1px,transparent 1px);
+  background-size:40px 40px; pointer-events:none; z-index:0;
+}
+
+/* ── LAYOUT ── */
+.page { position:relative; z-index:1; max-width:900px; margin:0 auto; padding:2rem 1rem 4rem; display:grid; grid-template-columns:1fr 160px; gap:1.5rem; }
+.main-col { min-width:0; }
+.side-col { display:flex; flex-direction:column; gap:1rem; }
+@media(max-width:700px){
+  .page { grid-template-columns:1fr; }
+  .side-col { display:none; }
+}
+
+/* ── HEADER ── */
+.header { text-align:center; margin-bottom:1.8rem; animation:fadeUp 0.5s ease both; }
+.header h1 { font-size:1.7rem; font-weight:700; letter-spacing:-0.5px; }
+.header h1 span { color:var(--accent); }
+.header p { font-size:13px; color:var(--hint); margin-top:4px; }
+
+/* ── AD BOXES ── */
+.ad-box {
+  background:var(--surface); border:1px dashed var(--border2); border-radius:14px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:6px; color:var(--hint); font-size:11px; text-align:center; padding:10px 6px;
+  min-height:90px;
+}
+.ad-box .ad-label { font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--hint); margin-bottom:4px; }
+.ad-banner {
+  background:var(--surface); border:1px dashed var(--border2); border-radius:12px;
+  padding:10px; text-align:center; color:var(--hint); font-size:11px; margin-bottom:1.4rem;
+  min-height:70px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;
+}
+.ad-banner .ad-label { font-size:10px; text-transform:uppercase; letter-spacing:1px; }
+
+/* ── TABS ── */
+.tabs { display:flex; gap:4px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:5px; margin-bottom:1.4rem; animation:fadeUp 0.5s 0.05s ease both; flex-wrap:wrap; }
+.tab { flex:1; min-width:60px; padding:8px 4px; font-size:11.5px; font-weight:500; font-family:var(--sans); border:none; background:transparent; color:var(--muted); cursor:pointer; border-radius:10px; transition:all 0.2s; }
+.tab:hover { color:var(--text); background:var(--surface2); }
+.tab.active { background:var(--accent); color:#fff; box-shadow:0 2px 12px var(--accent-glow); }
+
+/* ── PANELS ── */
+.panel { display:none; animation:fadeUp 0.3s ease both; }
+.panel.active { display:block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── CALCULATOR CARD ── */
+.calc-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; overflow:hidden; box-shadow:0 8px 40px rgba(0,0,0,0.4); }
+.display {
+  background:linear-gradient(160deg,#0f1520 0%,#0d1118 100%);
+  padding:1.5rem 1.5rem 1.2rem; min-height:120px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  border-bottom:1px solid var(--border); position:relative; overflow:hidden;
+}
+.display::after { content:''; position:absolute; top:-30px; right:-30px; width:120px; height:120px; background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%); pointer-events:none; }
+.expr-line { font-family:var(--mono); font-size:13px; color:var(--hint); min-height:18px; margin-bottom:6px; letter-spacing:0.5px; text-align:right; }
+.result-line { font-family:var(--mono); font-size:3rem; font-weight:300; color:var(--text); text-align:right; letter-spacing:-2px; line-height:1; word-break:break-all; }
+.result-line.big { font-size:2rem; }
+.result-line.error { color:var(--red); font-size:1.5rem; }
+.btn-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); }
+.btn { padding:20px 8px; font-size:17px; font-weight:400; font-family:var(--sans); border:none; cursor:pointer; background:var(--surface); color:var(--text); transition:background 0.12s,transform 0.08s; }
+.btn:hover { background:var(--surface2); }
+.btn:active { transform:scale(0.93); background:var(--surface3); }
+.btn.op { color:var(--accent); font-size:19px; }
+.btn.fn { color:var(--purple); font-size:13px; font-weight:500; }
+.btn.clear { color:var(--red); }
+.btn.eq { background:var(--accent); color:#fff; font-size:22px; }
+.btn.eq:hover { background:var(--accent2); }
+.btn.span2 { grid-column:span 2; }
+.btn.zero { text-align:left; padding-left:28px; }
+.sci-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border-bottom:1px solid var(--border); }
+
+/* ── CARDS & FORMS ── */
+.finance-wrap { display:flex; flex-direction:column; gap:1rem; }
+.chip-row { display:flex; gap:6px; flex-wrap:wrap; }
+.chip { padding:6px 13px; font-size:12px; font-weight:500; font-family:var(--sans); border:1px solid var(--border2); border-radius:30px; cursor:pointer; color:var(--muted); background:var(--surface); transition:all 0.15s; }
+.chip:hover { color:var(--text); border-color:var(--accent); }
+.chip.active { background:var(--accent-glow); color:var(--accent); border-color:var(--accent); }
+.fin-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:1.4rem; box-shadow:0 4px 24px rgba(0,0,0,0.3); }
+.fin-title { font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:1.1rem; }
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+.field-row.triple { grid-template-columns:1fr 1fr 1fr; }
+.field { display:flex; flex-direction:column; gap:5px; }
+.field label { font-size:11px; font-weight:500; color:var(--hint); text-transform:uppercase; letter-spacing:0.6px; }
+.field input, .field select { padding:10px 12px; font-size:14px; font-family:var(--sans); background:var(--surface2); border:1px solid var(--border2); border-radius:10px; color:var(--text); transition:border-color 0.15s,box-shadow 0.15s; -webkit-appearance:none; }
+.field input::placeholder { color:var(--hint); }
+.field input:focus,.field select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
+.field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b92a8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; padding-right:32px; background-color:var(--surface2); }
+.field select option { background:#1e2230; }
+.calc-btn { width:100%; padding:12px; font-size:14px; font-weight:600; font-family:var(--sans); background:var(--accent); color:#fff; border:none; border-radius:12px; cursor:pointer; transition:background 0.15s,transform 0.08s; margin-top:4px; box-shadow:0 4px 16px var(--accent-glow); }
+.calc-btn:hover { background:var(--accent2); }
+.calc-btn:active { transform:scale(0.98); }
+.swap-btn { width:100%; padding:9px; font-size:13px; font-weight:500; font-family:var(--sans); background:var(--surface2); color:var(--muted); border:1px solid var(--border2); border-radius:10px; cursor:pointer; transition:all 0.15s; margin-top:6px; }
+.swap-btn:hover { color:var(--text); border-color:var(--accent); }
+
+/* ── RESULTS ── */
+.result-block { margin-top:14px; }
+.result-hero { padding:16px 18px; border-radius:14px; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between; }
+.result-hero.blue { background:var(--accent-glow); border:1px solid rgba(91,141,239,0.3); }
+.result-hero.green { background:var(--green-bg); border:1px solid rgba(76,175,125,0.3); }
+.result-hero.amber { background:var(--amber-bg); border:1px solid rgba(240,168,48,0.3); }
+.result-hero.red { background:var(--red-bg); border:1px solid rgba(224,85,85,0.3); }
+.rh-label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.7px; }
+.rh-formula { font-size:11px; color:var(--hint); margin-top:3px; font-family:var(--mono); }
+.rh-val { font-size:1.7rem; font-weight:600; font-family:var(--mono); letter-spacing:-0.5px; }
+.rh-val.blue { color:var(--accent); }
+.rh-val.green { color:var(--green); }
+.rh-val.amber { color:var(--amber); }
+.rh-val.red { color:var(--red); }
+.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.stat-pill { padding:10px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:12px; }
+.sp-label { font-size:10.5px; color:var(--hint); font-weight:500; }
+.sp-val { font-size:15px; font-weight:600; color:var(--text); font-family:var(--mono); }
+.err-msg { color:var(--red); font-size:12px; margin-top:8px; padding:8px 12px; background:var(--red-bg); border-radius:8px; }
+
+/* ── CURRENCY ── */
+.currency-hero { background:linear-gradient(135deg,#0f1e3a 0%,#0d1520 100%); border:1px solid rgba(91,141,239,0.2); border-radius:18px; padding:1.6rem; margin-bottom:1rem; }
+.currency-io { display:flex; gap:10px; align-items:flex-end; margin-bottom:14px; }
+.currency-io .field { flex:1; }
+.currency-flag { font-size:1.4rem; }
+.cur-result { background:var(--surface2); border-radius:14px; padding:16px 18px; display:flex; align-items:center; justify-content:space-between; margin-top:12px; }
+.cur-big { font-size:2rem; font-weight:600; font-family:var(--mono); color:var(--accent); letter-spacing:-1px; }
+.cur-meta { font-size:11px; color:var(--hint); margin-top:4px; }
+.cur-rate-badge { background:var(--accent-glow); color:var(--accent); font-size:12px; font-weight:600; padding:6px 12px; border-radius:20px; border:1px solid rgba(91,141,239,0.3); font-family:var(--mono); }
+.popular-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px; }
+.pop-card { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:10px 12px; cursor:pointer; transition:border-color 0.15s; }
+.pop-card:hover { border-color:var(--accent); }
+.pop-pair { font-size:11px; color:var(--hint); margin-bottom:3px; }
+.pop-rate { font-size:14px; font-weight:600; font-family:var(--mono); color:var(--text); }
+.loading-spin { display:inline-block; width:16px; height:16px; border:2px solid var(--border2); border-top-color:var(--accent); border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:6px; }
+@keyframes spin { to{transform:rotate(360deg)} }
+.refresh-btn { background:none; border:1px solid var(--border2); color:var(--muted); font-size:12px; font-family:var(--sans); padding:5px 12px; border-radius:8px; cursor:pointer; transition:all 0.15s; }
+.refresh-btn:hover { color:var(--text); border-color:var(--accent); }
+
+/* ── UNIT ── */
+.unit-row { display:grid; grid-template-columns:1fr 1.4fr; gap:10px; align-items:end; margin-bottom:10px; }
+.unit-result-bar { background:var(--surface2); border:1px solid var(--border2); border-radius:12px; padding:14px 16px; margin-top:10px; }
+.urb-val { font-size:1.4rem; font-weight:600; color:var(--accent); font-family:var(--mono); }
+.urb-unit { font-size:13px; color:var(--muted); margin-top:2px; }
+
+/* ── HISTORY ── */
+.hist-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+.hist-header h3 { font-size:15px; font-weight:600; }
+.hist-clear { font-size:12px; color:var(--red); background:none; border:none; cursor:pointer; font-family:var(--sans); padding:4px 10px; border-radius:6px; transition:background 0.15s; }
+.hist-clear:hover { background:var(--red-bg); }
+.hist-list { display:flex; flex-direction:column; gap:6px; }
+.hist-item { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--surface); border:1px solid var(--border); border-radius:12px; cursor:pointer; transition:all 0.15s; gap:12px; }
+.hist-item:hover { border-color:var(--accent); background:var(--surface2); }
+.hist-expr { font-size:13px; color:var(--muted); font-family:var(--mono); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.hist-res { font-size:15px; font-weight:600; color:var(--text); font-family:var(--mono); flex-shrink:0; }
+.hist-tag { font-size:10px; padding:2px 7px; border-radius:20px; background:var(--surface2); color:var(--hint); flex-shrink:0; }
+.empty-state { text-align:center; padding:3rem 1rem; color:var(--hint); font-size:14px; }
+.empty-icon { font-size:2.5rem; margin-bottom:10px; opacity:0.3; }
+
+/* ── FOOTER ── */
+.footer { text-align:center; margin-top:3rem; font-size:11px; color:var(--hint); }
+.footer a { color:var(--hint); }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <!-- ═══ MAIN COLUMN ═══ -->
+  <div class="main-col">
+
+    <div class="header">
+      <h1>Calc<span>Pro</span></h1>
+      <p>Free all-in-one smart calculator</p>
+    </div>
+
+    <!-- ── TOP BANNER AD ──
+         Replace data-ad-client and data-ad-slot with your real values from AdSense
+         Ad unit type: Display / Responsive Banner
+    -->
+    <div class="ad-banner">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle"
+           style="display:block;width:100%;min-height:60px;"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="1111111111"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('basic',this)">Basic</button>
+      <button class="tab" onclick="switchTab('sci',this)">Scientific</button>
+      <button class="tab" onclick="switchTab('finance',this)">Finance</button>
+      <button class="tab" onclick="switchTab('currency',this)">Currency</button>
+      <button class="tab" onclick="switchTab('unit',this)">Units</button>
+      <button class="tab" onclick="switchTab('history',this)">History</button>
+    </div>
+
+    <!-- ════ BASIC ════ -->
+    <div class="panel active" id="panel-basic">
+      <div class="calc-card">
+        <div class="display">
+          <div class="expr-line" id="expr"></div>
+          <div class="result-line" id="display">0</div>
+        </div>
+        <div class="btn-grid">
+          <button class="btn clear" onclick="clearAll()">AC</button>
+          <button class="btn op" onclick="toggleSign()">+/−</button>
+          <button class="btn op" onclick="percent()">%</button>
+          <button class="btn op" onclick="inputOp('/')">÷</button>
+          <button class="btn" onclick="inputNum('7')">7</button>
+          <button class="btn" onclick="inputNum('8')">8</button>
+          <button class="btn" onclick="inputNum('9')">9</button>
+          <button class="btn op" onclick="inputOp('*')">×</button>
+          <button class="btn" onclick="inputNum('4')">4</button>
+          <button class="btn" onclick="inputNum('5')">5</button>
+          <button class="btn" onclick="inputNum('6')">6</button>
+          <button class="btn op" onclick="inputOp('-')">−</button>
+          <button class="btn" onclick="inputNum('1')">1</button>
+          <button class="btn" onclick="inputNum('2')">2</button>
+          <button class="btn" onclick="inputNum('3')">3</button>
+          <button class="btn op" onclick="inputOp('+')">+</button>
+          <button class="btn span2 zero" onclick="inputNum('0')">0</button>
+          <button class="btn" onclick="inputDot()">.</button>
+          <button class="btn eq" onclick="calculate()">=</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ SCIENTIFIC ════ -->
+    <div class="panel" id="panel-sci">
+      <div class="calc-card">
+        <div class="display">
+          <div class="expr-line" id="sexpr"></div>
+          <div class="result-line" id="sdisplay">0</div>
+        </div>
+        <div class="sci-grid">
+          <button class="btn fn" onclick="sciOp('sin')">sin</button>
+          <button class="btn fn" onclick="sciOp('cos')">cos</button>
+          <button class="btn fn" onclick="sciOp('tan')">tan</button>
+          <button class="btn fn" onclick="sciOp('log')">log</button>
+          <button class="btn fn" onclick="sciOp('ln')">ln</button>
+          <button class="btn fn" onclick="sciOp('sqrt')">√x</button>
+          <button class="btn fn" onclick="sciPow()">x²</button>
+          <button class="btn fn" onclick="sciInv()">1/x</button>
+          <button class="btn fn" onclick="sciInputNum('Math.PI')">π</button>
+          <button class="btn fn" onclick="sciInputNum('Math.E')">e</button>
+          <button class="btn fn" onclick="sciOp('abs')">|x|</button>
+          <button class="btn fn" onclick="sciOp('fact')">n!</button>
+        </div>
+        <div class="btn-grid">
+          <button class="btn clear" onclick="sciClear()">AC</button>
+          <button class="btn op" onclick="sciToggleSign()">+/−</button>
+          <button class="btn op" onclick="sciPercent()">%</button>
+          <button class="btn op" onclick="sciInputOp('/')">÷</button>
+          <button class="btn" onclick="sciInputNum('7')">7</button>
+          <button class="btn" onclick="sciInputNum('8')">8</button>
+          <button class="btn" onclick="sciInputNum('9')">9</button>
+          <button class="btn op" onclick="sciInputOp('*')">×</button>
+          <button class="btn" onclick="sciInputNum('4')">4</button>
+          <button class="btn" onclick="sciInputNum('5')">5</button>
+          <button class="btn" onclick="sciInputNum('6')">6</button>
+          <button class="btn op" onclick="sciInputOp('-')">−</button>
+          <button class="btn" onclick="sciInputNum('1')">1</button>
+          <button class="btn" onclick="sciInputNum('2')">2</button>
+          <button class="btn" onclick="sciInputNum('3')">3</button>
+          <button class="btn op" onclick="sciInputOp('+')">+</button>
+          <button class="btn span2 zero" onclick="sciInputNum('0')">0</button>
+          <button class="btn" onclick="sciInputDot()">.</button>
+          <button class="btn eq" onclick="sciCalculate()">=</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ FINANCE ════ -->
+    <div class="panel" id="panel-finance">
+      <div class="finance-wrap">
+        <div class="chip-row">
+          <button class="chip active" onclick="switchFin('emi',this)">EMI</button>
+          <button class="chip" onclick="switchFin('ci',this)">Compound Interest</button>
+          <button class="chip" onclick="switchFin('si',this)">Simple Interest</button>
+          <button class="chip" onclick="switchFin('gst',this)">GST</button>
+          <button class="chip" onclick="switchFin('pl',this)">Profit / Loss</button>
+        </div>
+        <div class="fin-card" id="fin-emi">
+          <div class="fin-title">EMI Calculator</div>
+          <div class="field-row">
+            <div class="field"><label>Principal (₹)</label><input type="number" id="ep" placeholder="500000"/></div>
+            <div class="field"><label>Annual Rate (%)</label><input type="number" id="er" placeholder="8.5" step="0.1"/></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Tenure</label><input type="number" id="et" placeholder="20"/></div>
+            <div class="field"><label>Type</label><select id="ett"><option value="years">Years</option><option value="months">Months</option></select></div>
+          </div>
+          <button class="calc-btn" onclick="calcEMI()">Calculate EMI</button>
+          <div id="emi-out"></div>
+        </div>
+        <div class="fin-card" id="fin-ci" style="display:none">
+          <div class="fin-title">Compound Interest</div>
+          <div class="field-row">
+            <div class="field"><label>Principal (₹)</label><input type="number" id="cp" placeholder="10000"/></div>
+            <div class="field"><label>Annual Rate (%)</label><input type="number" id="cr" placeholder="10" step="0.1"/></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Time (Years)</label><input type="number" id="ct" placeholder="5"/></div>
+            <div class="field"><label>Compounding</label><select id="cn"><option value="1">Yearly</option><option value="2">Half-yearly</option><option value="4">Quarterly</option><option value="12" selected>Monthly</option><option value="365">Daily</option></select></div>
+          </div>
+          <button class="calc-btn" onclick="calcCI()">Calculate</button>
+          <div id="ci-out"></div>
+        </div>
+        <div class="fin-card" id="fin-si" style="display:none">
+          <div class="fin-title">Simple Interest</div>
+          <div class="field-row triple">
+            <div class="field"><label>Principal (₹)</label><input type="number" id="sp" placeholder="10000"/></div>
+            <div class="field"><label>Rate (%/yr)</label><input type="number" id="sr" placeholder="10" step="0.1"/></div>
+            <div class="field"><label>Time (Years)</label><input type="number" id="st" placeholder="3"/></div>
+          </div>
+          <button class="calc-btn" onclick="calcSI()">Calculate</button>
+          <div id="si-out"></div>
+        </div>
+        <div class="fin-card" id="fin-gst" style="display:none">
+          <div class="fin-title">GST Calculator</div>
+          <div class="field-row">
+            <div class="field"><label>Amount (₹)</label><input type="number" id="ga" placeholder="1000"/></div>
+            <div class="field"><label>GST Rate</label>
+              <select id="gr"><option value="0">0%</option><option value="0.1">0.1%</option><option value="0.25">0.25%</option><option value="3">3%</option><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" style="grid-column:span 2"><label>Calculation Type</label>
+              <select id="gt"><option value="excl">Exclusive — Add GST to amount</option><option value="incl">Inclusive — Extract GST from amount</option></select>
+            </div>
+          </div>
+          <button class="calc-btn" onclick="calcGST()">Calculate GST</button>
+          <div id="gst-out"></div>
+        </div>
+        <div class="fin-card" id="fin-pl" style="display:none">
+          <div class="fin-title">Profit / Loss</div>
+          <div class="field-row">
+            <div class="field"><label>Cost Price (₹)</label><input type="number" id="plc" placeholder="800"/></div>
+            <div class="field"><label>Selling Price (₹)</label><input type="number" id="pls" placeholder="1000"/></div>
+          </div>
+          <button class="calc-btn" onclick="calcPL()">Calculate</button>
+          <div id="pl-out"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ CURRENCY ════ -->
+    <div class="panel" id="panel-currency">
+      <div class="finance-wrap">
+        <div class="currency-hero">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div class="fin-title" style="margin:0">Currency Converter</div>
+            <button class="refresh-btn" onclick="fetchRates()">⟳ Refresh rates</button>
+          </div>
+          <div id="cur-status" style="font-size:12px;color:var(--hint);margin-bottom:12px;"></div>
+          <div class="currency-io">
+            <div class="field" style="flex:0.8">
+              <label>Amount</label>
+              <input type="number" id="cur-amount" placeholder="1" value="1" oninput="convertCurrency()"/>
+            </div>
+            <div class="field" style="flex:1.2">
+              <label>From</label>
+              <select id="cur-from" onchange="convertCurrency()"></select>
+            </div>
+          </div>
+          <div class="currency-io">
+            <div style="flex:0.8;display:flex;align-items:center;justify-content:center;">
+              <button class="swap-btn" style="width:auto;padding:10px 18px;" onclick="swapCurrency()">⇅ Swap</button>
+            </div>
+            <div class="field" style="flex:1.2">
+              <label>To</label>
+              <select id="cur-to" onchange="convertCurrency()"></select>
+            </div>
+          </div>
+          <div id="cur-result"></div>
+        </div>
+
+        <!-- Popular pairs -->
+        <div class="fin-card">
+          <div class="fin-title">Popular Pairs (based on 1 USD)</div>
+          <div class="popular-grid" id="popular-grid">
+            <div class="pop-card"><div class="pop-pair">USD → INR</div><div class="pop-rate" id="pp-inr">—</div></div>
+            <div class="pop-card"><div class="pop-pair">USD → EUR</div><div class="pop-rate" id="pp-eur">—</div></div>
+            <div class="pop-card"><div class="pop-pair">USD → GBP</div><div class="pop-rate" id="pp-gbp">—</div></div>
+            <div class="pop-card"><div class="pop-pair">USD → JPY</div><div class="pop-rate" id="pp-jpy">—</div></div>
+            <div class="pop-card"><div class="pop-pair">USD → AED</div><div class="pop-rate" id="pp-aed">—</div></div>
+            <div class="pop-card"><div class="pop-pair">USD → CAD</div><div class="pop-rate" id="pp-cad">—</div></div>
+          </div>
+        </div>
+
+        <!-- Mid-content ad after currency -->
+        <div class="ad-banner">
+          <div class="ad-label">Advertisement</div>
+          <ins class="adsbygoogle"
+               style="display:block;width:100%;min-height:60px;"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="2222222222"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ UNIT ════ -->
+    <div class="panel" id="panel-unit">
+      <div class="finance-wrap">
+        <div class="chip-row">
+          <button class="chip active" onclick="switchUnit('length',this)">Length</button>
+          <button class="chip" onclick="switchUnit('weight',this)">Weight</button>
+          <button class="chip" onclick="switchUnit('temp',this)">Temp</button>
+          <button class="chip" onclick="switchUnit('area',this)">Area</button>
+          <button class="chip" onclick="switchUnit('speed',this)">Speed</button>
+          <button class="chip" onclick="switchUnit('data',this)">Data</button>
+        </div>
+        <div class="fin-card" id="unit-body"></div>
+      </div>
+    </div>
+
+    <!-- ════ HISTORY ════ -->
+    <div class="panel" id="panel-history">
+      <div class="hist-header">
+        <h3>Calculation History</h3>
+        <button class="hist-clear" onclick="clearHistory()">Clear all</button>
+      </div>
+      <div class="hist-list" id="hist-list">
+        <div class="empty-state"><div class="empty-icon">📋</div><div>No calculations yet</div></div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <p>© 2025 CalcPro · Free Online Calculator · <a href="#">Privacy Policy</a> · <a href="#">Contact</a></p>
+      <p style="margin-top:4px;">Rates powered by open.er-api.com · Updated every page load</p>
+    </div>
+  </div><!-- /main-col -->
+
+  <!-- ═══ SIDEBAR ADS ═══ -->
+  <div class="side-col">
+    <!-- Sidebar Ad 1 -->
+    <div class="ad-box">
+      <div class="ad-label">Ad</div>
+      <ins class="adsbygoogle"
+           style="display:block;width:160px;min-height:300px;"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="3333333333"
+           data-ad-format="auto"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    <!-- Sidebar Ad 2 -->
+    <div class="ad-box">
+      <div class="ad-label">Ad</div>
+      <ins class="adsbygoogle"
+           style="display:block;width:160px;min-height:250px;"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="4444444444"
+           data-ad-format="auto"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+</div><!-- /page -->
+
+<script>
+/* ── UTILS ── */
+const fmtINR = n => '₹'+parseFloat(n.toFixed(2)).toLocaleString('en-IN');
+const errHtml = m => `<div class="err-msg">⚠ ${m}</div>`;
+const statsGrid = items => '<div class="stats-grid">'+items.map(([l,v])=>`<div class="stat-pill"><div class="sp-label">${l}</div><div class="sp-val">${v}</div></div>`).join('')+'</div>';
+
+/* ── TABS ── */
+function switchTab(tab, btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+  btn.classList.add('active');
+  if(tab==='history') renderHistory();
+  if(tab==='unit' && !curUnit){ curUnit='length'; renderUnit(); }
+  if(tab==='currency' && !ratesLoaded) fetchRates();
+}
+
+/* ── BASIC ── */
+let cur='0', expr='', hasRes=false;
+function upd(){
+  const el=document.getElementById('display');
+  el.textContent=cur.length>12?parseFloat(cur).toExponential(5):cur;
+  el.className='result-line'+(cur.length>10?' big':'');
+  document.getElementById('expr').textContent=expr.replace(/\*/g,'×').replace(/\//g,'÷');
+}
+function inputNum(n){ if(hasRes){cur=n;expr='';hasRes=false;}else cur=cur==='0'?n:cur+n; upd(); }
+function inputOp(op){ hasRes=false; const l=expr.slice(-1); if(expr&&['+','-','*','/'].includes(l))expr=expr.slice(0,-1)+op; else expr+=cur+op; cur='0'; upd(); }
+function inputDot(){ if(hasRes){cur='0.';hasRes=false;}else if(!cur.includes('.'))cur+='.'; upd(); }
+function clearAll(){ cur='0';expr='';hasRes=false; upd(); }
+function toggleSign(){ cur=cur.startsWith('-')?cur.slice(1):'-'+cur; upd(); }
+function percent(){ const v=parseFloat(cur); if(expr){const b=parseFloat(expr);cur=String(Math.round(b*v/100*1e10)/1e10);}else cur=String(v/100); upd(); }
+function calculate(){
+  try{
+    const full=expr+cur; if(!full.trim())return;
+    const res=Function('"use strict";return('+full+')')();
+    if(!isFinite(res))throw new Error();
+    const r=parseFloat(res.toPrecision(12));
+    addHistory(full.replace(/\*/g,'×').replace(/\//g,'÷'),r,'basic');
+    document.getElementById('expr').textContent=full.replace(/\*/g,'×').replace(/\//g,'÷')+' =';
+    cur=String(r);expr='';hasRes=true;
+    document.getElementById('display').textContent=cur;
+  }catch(e){
+    document.getElementById('display').textContent='Error';
+    document.getElementById('display').className='result-line error';
+    setTimeout(clearAll,1500);
+  }
+}
+
+/* ── SCIENTIFIC ── */
+let scur='0',sexpr='',shasRes=false;
+function supdR(label,result){ document.getElementById('sexpr').textContent=label+' ='; scur=String(result); shasRes=true; document.getElementById('sdisplay').textContent=scur; document.getElementById('sdisplay').className='result-line'; }
+function supd(){ const el=document.getElementById('sdisplay'); el.textContent=scur; el.className='result-line'+(scur.length>10?' big':''); document.getElementById('sexpr').textContent=sexpr.replace(/\*/g,'×').replace(/\//g,'÷'); }
+function sciInputNum(n){ let v=n==='Math.PI'?String(Math.PI):n==='Math.E'?String(Math.E):n; if(shasRes){scur=v;sexpr='';shasRes=false;}else scur=scur==='0'?v:scur+v; supd(); }
+function sciInputOp(op){ shasRes=false; if(sexpr&&['+','-','*','/'].includes(sexpr.slice(-1)))sexpr=sexpr.slice(0,-1)+op; else sexpr+=scur+op; scur='0'; supd(); }
+function sciInputDot(){ if(!scur.includes('.'))scur+='.'; supd(); }
+function sciClear(){ scur='0';sexpr='';shasRes=false; supd(); }
+function sciToggleSign(){ scur=scur.startsWith('-')?scur.slice(1):'-'+scur; supd(); }
+function sciPercent(){ scur=String(parseFloat(scur)/100); supd(); }
+function fact(n){ n=Math.floor(Math.abs(n)); if(n>170)return Infinity; if(n<=1)return 1; let r=1; for(let i=2;i<=n;i++)r*=i; return r; }
+function sciOp(fn){
+  const v=parseFloat(scur); let res,label;
+  if(fn==='sin'){res=Math.sin(v*Math.PI/180);label=`sin(${v}°)`;}
+  else if(fn==='cos'){res=Math.cos(v*Math.PI/180);label=`cos(${v}°)`;}
+  else if(fn==='tan'){res=Math.tan(v*Math.PI/180);label=`tan(${v}°)`;}
+  else if(fn==='log'){res=Math.log10(v);label=`log(${v})`;}
+  else if(fn==='ln'){res=Math.log(v);label=`ln(${v})`;}
+  else if(fn==='sqrt'){res=Math.sqrt(v);label=`√(${v})`;}
+  else if(fn==='abs'){res=Math.abs(v);label=`|${v}|`;}
+  else if(fn==='fact'){res=fact(v);label=`${v}!`;}
+  if(!isFinite(res)){document.getElementById('sdisplay').textContent='Error';document.getElementById('sdisplay').className='result-line error';setTimeout(sciClear,1500);return;}
+  const r=parseFloat(res.toPrecision(10)); addHistory(label,r,'sci'); supdR(label,r);
+}
+function sciPow(){ const v=parseFloat(scur),r=v*v; addHistory(`${v}²`,r,'sci'); supdR(`${v}²`,r); }
+function sciInv(){ const v=parseFloat(scur); if(v===0){document.getElementById('sdisplay').textContent='Error';document.getElementById('sdisplay').className='result-line error';setTimeout(sciClear,1500);return;} const r=parseFloat((1/v).toPrecision(10)); addHistory(`1/${v}`,r,'sci'); supdR(`1/${v}`,r); }
+function sciCalculate(){
+  try{ const full=sexpr+scur; const res=Function('"use strict";return('+full+')')(); if(!isFinite(res))throw new Error();
+    const r=parseFloat(res.toPrecision(12)); addHistory(full.replace(/\*/g,'×').replace(/\//g,'÷'),r,'sci');
+    document.getElementById('sexpr').textContent=full.replace(/\*/g,'×').replace(/\//g,'÷')+' =';
+    scur=String(r);sexpr='';shasRes=true; document.getElementById('sdisplay').textContent=scur;
+  }catch(e){ document.getElementById('sdisplay').textContent='Error'; document.getElementById('sdisplay').className='result-line error'; setTimeout(sciClear,1500); }
+}
+
+/* ── FINANCE ── */
+function switchFin(t,btn){ ['emi','ci','si','gst','pl'].forEach(x=>document.getElementById('fin-'+x).style.display=x===t?'block':'none'); document.querySelectorAll('#panel-finance .chip').forEach(c=>c.classList.remove('active')); btn.classList.add('active'); }
+function calcEMI(){
+  const P=parseFloat(document.getElementById('ep').value),r=parseFloat(document.getElementById('er').value);
+  let t=parseFloat(document.getElementById('et').value);
+  if(!P||!r||!t){document.getElementById('emi-out').innerHTML=errHtml('Please fill all fields');return;}
+  if(document.getElementById('ett').value==='years')t*=12;
+  const mr=r/12/100, emi=P*mr*Math.pow(1+mr,t)/(Math.pow(1+mr,t)-1), total=emi*t, interest=total-P;
+  document.getElementById('emi-out').innerHTML=`<div class="result-block"><div class="result-hero blue"><div><div class="rh-label">Monthly EMI</div><div class="rh-formula">P·r(1+r)ⁿ / ((1+r)ⁿ−1)</div></div><div class="rh-val blue">${fmtINR(emi)}</div></div>${statsGrid([['Principal',fmtINR(P)],['Total Interest',fmtINR(interest)],['Total Payable',fmtINR(total)],['Tenure',t+' months']])}</div>`;
+  addHistory(`EMI P=${fmtINR(P)} R=${r}%`,emi,'finance');
+}
+function calcCI(){
+  const P=parseFloat(document.getElementById('cp').value),r=parseFloat(document.getElementById('cr').value),t=parseFloat(document.getElementById('ct').value),n=parseFloat(document.getElementById('cn').value);
+  if(!P||!r||!t){document.getElementById('ci-out').innerHTML=errHtml('Please fill all fields');return;}
+  const A=P*Math.pow(1+r/(n*100),n*t),CI=A-P;
+  document.getElementById('ci-out').innerHTML=`<div class="result-block"><div class="result-hero green"><div><div class="rh-label">Final Amount</div><div class="rh-formula">A = P(1+r/n)^(nt)</div></div><div class="rh-val green">${fmtINR(A)}</div></div>${statsGrid([['Principal',fmtINR(P)],['Compound Interest',fmtINR(CI)],['Rate',r+'%'],['Period',t+' years']])}</div>`;
+  addHistory(`CI P=${fmtINR(P)} R=${r}% T=${t}yr`,CI,'finance');
+}
+function calcSI(){
+  const P=parseFloat(document.getElementById('sp').value),r=parseFloat(document.getElementById('sr').value),t=parseFloat(document.getElementById('st').value);
+  if(!P||!r||!t){document.getElementById('si-out').innerHTML=errHtml('Please fill all fields');return;}
+  const SI=(P*r*t)/100,A=P+SI;
+  document.getElementById('si-out').innerHTML=`<div class="result-block"><div class="result-hero green"><div><div class="rh-label">Simple Interest</div><div class="rh-formula">SI = (P × R × T) / 100</div></div><div class="rh-val green">${fmtINR(SI)}</div></div>${statsGrid([['Principal',fmtINR(P)],['Total Amount',fmtINR(A)],['Rate',r+'%'],['Time',t+' years']])}</div>`;
+  addHistory(`SI P=${fmtINR(P)} R=${r}% T=${t}yr`,SI,'finance');
+}
+function calcGST(){
+  const amt=parseFloat(document.getElementById('ga').value),rate=parseFloat(document.getElementById('gr').value),type=document.getElementById('gt').value;
+  if(isNaN(amt)){document.getElementById('gst-out').innerHTML=errHtml('Enter a valid amount');return;}
+  let base,gstAmt,total;
+  if(type==='excl'){base=amt;gstAmt=amt*rate/100;total=amt+gstAmt;}else{total=amt;base=amt*100/(100+rate);gstAmt=amt-base;}
+  const cgst=gstAmt/2;
+  document.getElementById('gst-out').innerHTML=`<div class="result-block"><div class="result-hero blue"><div><div class="rh-label">GST Amount (${rate}%)</div></div><div class="rh-val blue">${fmtINR(gstAmt)}</div></div>${statsGrid([['Base Amount',fmtINR(base)],['Total with GST',fmtINR(total)],['CGST ('+rate/2+'%)',fmtINR(cgst)],['SGST ('+rate/2+'%)',fmtINR(cgst)]])}</div>`;
+  addHistory(`GST ${rate}%`,gstAmt,'finance');
+}
+function calcPL(){
+  const cp=parseFloat(document.getElementById('plc').value),sp=parseFloat(document.getElementById('pls').value);
+  if(!cp||!sp){document.getElementById('pl-out').innerHTML=errHtml('Please fill all fields');return;}
+  const diff=sp-cp,pct=parseFloat(((Math.abs(diff)/cp)*100).toFixed(2)),isP=diff>=0;
+  document.getElementById('pl-out').innerHTML=`<div class="result-block"><div class="result-hero ${isP?'green':'amber'}"><div><div class="rh-label">${isP?'Profit':'Loss'}</div><div class="rh-formula">${pct}% on cost price</div></div><div class="rh-val ${isP?'green':'amber'}">${fmtINR(Math.abs(diff))}</div></div>${statsGrid([['Cost Price',fmtINR(cp)],['Selling Price',fmtINR(sp)],['Difference',fmtINR(Math.abs(diff))],[isP?'Profit %':'Loss %',pct+'%']])}</div>`;
+  addHistory(`P/L CP=${fmtINR(cp)} SP=${fmtINR(sp)}`,diff,'finance');
+}
+
+/* ── CURRENCY CONVERTER ── */
+let rates={}, ratesLoaded=false, ratesDate='';
+const CURRENCIES=[
+  ['USD','🇺🇸 US Dollar'],['INR','🇮🇳 Indian Rupee'],['EUR','🇪🇺 Euro'],['GBP','🇬🇧 British Pound'],
+  ['JPY','🇯🇵 Japanese Yen'],['AED','🇦🇪 UAE Dirham'],['CAD','🇨🇦 Canadian Dollar'],
+  ['AUD','🇦🇺 Australian Dollar'],['CHF','🇨🇭 Swiss Franc'],['CNY','🇨🇳 Chinese Yuan'],
+  ['SGD','🇸🇬 Singapore Dollar'],['SAR','🇸🇦 Saudi Riyal'],['HKD','🇭🇰 Hong Kong Dollar'],
+  ['MYR','🇲🇾 Malaysian Ringgit'],['THB','🇹🇭 Thai Baht'],['KRW','🇰🇷 Korean Won'],
+  ['NZD','🇳🇿 NZ Dollar'],['ZAR','🇿🇦 S. African Rand'],['SEK','🇸🇪 Swedish Krona'],
+  ['NOK','🇳🇴 Norwegian Krone'],['DKK','🇩🇰 Danish Krone'],['PKR','🇵🇰 Pakistani Rupee'],
+  ['BDT','🇧🇩 Bangladeshi Taka'],['LKR','🇱🇰 Sri Lankan Rupee'],['NPR','🇳🇵 Nepalese Rupee'],
+  ['MXN','🇲🇽 Mexican Peso'],['BRL','🇧🇷 Brazilian Real'],['RUB','🇷🇺 Russian Ruble'],
+  ['TRY','🇹🇷 Turkish Lira'],['IDR','🇮🇩 Indonesian Rupiah'],['PHP','🇵🇭 Philippine Peso'],
+  ['VND','🇻🇳 Vietnamese Dong'],['EGP','🇪🇬 Egyptian Pound'],['QAR','🇶🇦 Qatari Riyal'],['KWD','🇰🇼 Kuwaiti Dinar']
+];
+
+function populateCurrencySelects(){
+  const fromSel=document.getElementById('cur-from'), toSel=document.getElementById('cur-to');
+  const opts=CURRENCIES.map(([c,n])=>`<option value="${c}">${c} — ${n}</option>`).join('');
+  fromSel.innerHTML=opts; toSel.innerHTML=opts;
+  fromSel.value='USD'; toSel.value='INR';
+}
+
+async function fetchRates(){
+  const status=document.getElementById('cur-status');
+  status.innerHTML='<span class="loading-spin"></span> Fetching live rates...';
+  try{
+    const res=await fetch('https://open.er-api.com/v6/latest/USD');
+    const data=await res.json();
+    if(data.result==='success'){
+      rates=data.rates; ratesLoaded=true; ratesDate=data.time_last_update_utc;
+      status.textContent='✓ Live rates · Updated: '+new Date(ratesDate).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+      updatePopularPairs();
+      convertCurrency();
+    }else throw new Error();
+  }catch(e){
+    // Fallback static rates (approximate) if API fails
+    rates={USD:1,INR:83.5,EUR:0.92,GBP:0.79,JPY:149.5,AED:3.67,CAD:1.36,AUD:1.53,CHF:0.88,CNY:7.24,SGD:1.34,SAR:3.75,HKD:7.82,MYR:4.72,THB:35.1,KRW:1325,NZD:1.63,ZAR:18.7,SEK:10.5,NOK:10.6,DKK:6.89,PKR:278,BDT:110,LKR:308,NPR:133,MXN:17.1,BRL:4.97,RUB:90.5,TRY:32.2,IDR:15800,PHP:55.8,VND:24500,EGP:30.9,QAR:3.64,KWD:0.307};
+    ratesLoaded=true;
+    status.textContent='⚠ Using approximate rates (offline mode)';
+    updatePopularPairs(); convertCurrency();
+  }
+}
+
+function updatePopularPairs(){
+  const pairs={inr:'INR',eur:'EUR',gbp:'GBP',jpy:'JPY',aed:'AED',cad:'CAD'};
+  Object.entries(pairs).forEach(([id,cur])=>{
+    const el=document.getElementById('pp-'+id);
+    if(el&&rates[cur]) el.textContent=parseFloat(rates[cur].toFixed(cur==='JPY'||cur==='KRW'?1:4)).toLocaleString();
+  });
+}
+
+function convertCurrency(){
+  const amt=parseFloat(document.getElementById('cur-amount').value)||0;
+  const from=document.getElementById('cur-from').value;
+  const to=document.getElementById('cur-to').value;
+  const out=document.getElementById('cur-result');
+  if(!ratesLoaded){out.innerHTML='<div style="color:var(--hint);font-size:13px;margin-top:10px;">Loading rates...</div>';return;}
+  if(!rates[from]||!rates[to]){out.innerHTML=errHtml('Currency not available');return;}
+  const inUSD=amt/rates[from], result=inUSD*rates[to];
+  const rate=rates[to]/rates[from];
+  const fmtResult = result>=1000?result.toLocaleString('en-IN',{maximumFractionDigits:2}):result.toFixed(4);
+  const fmtRate = rate>=100?rate.toFixed(2):rate.toFixed(4);
+  out.innerHTML=`
+    <div class="cur-result">
+      <div>
+        <div class="cur-big">${fmtResult} <span style="font-size:1rem;opacity:0.7">${to}</span></div>
+        <div class="cur-meta">1 ${from} = ${fmtRate} ${to}</div>
+      </div>
+      <div class="cur-rate-badge">1 ${from}<br>= ${fmtRate} ${to}</div>
+    </div>`;
+  addHistory(`${amt} ${from} → ${to}`,result,'currency');
+}
+
+function swapCurrency(){
+  const f=document.getElementById('cur-from'),t=document.getElementById('cur-to');
+  const tmp=f.value; f.value=t.value; t.value=tmp; convertCurrency();
+}
+
+/* ── UNIT CONVERTER ── */
+let curUnit=null;
+const unitDefs={
+  length:{label:'Length',units:['Meter','Kilometer','Centimeter','Millimeter','Inch','Foot','Yard','Mile'],toBase:{Meter:1,Kilometer:1000,Centimeter:0.01,Millimeter:0.001,Inch:0.0254,Foot:0.3048,Yard:0.9144,Mile:1609.344}},
+  weight:{label:'Weight',units:['Kilogram','Gram','Milligram','Pound','Ounce','Ton'],toBase:{Kilogram:1,Gram:0.001,Milligram:1e-6,Pound:0.453592,Ounce:0.0283495,Ton:1000}},
+  temp:{label:'Temperature',units:['Celsius','Fahrenheit','Kelvin'],toBase:null},
+  area:{label:'Area',units:['Sq. Meter','Sq. Kilometer','Sq. Foot','Sq. Inch','Acre','Hectare'],toBase:{'Sq. Meter':1,'Sq. Kilometer':1e6,'Sq. Foot':0.092903,'Sq. Inch':6.4516e-4,'Acre':4046.86,'Hectare':10000}},
+  speed:{label:'Speed',units:['m/s','km/h','mph','Knot'],toBase:{'m/s':1,'km/h':1/3.6,'mph':0.44704,'Knot':0.514444}},
+  data:{label:'Data',units:['Byte','KB','MB','GB','TB'],toBase:{Byte:1,KB:1024,MB:1048576,GB:1073741824,TB:1099511627776}}
+};
+function switchUnit(t,btn){ curUnit=t; document.querySelectorAll('#panel-unit .chip').forEach(c=>c.classList.remove('active')); btn.classList.add('active'); renderUnit(); }
+function renderUnit(){
+  const d=unitDefs[curUnit];
+  const opts=d.units.map(u=>`<option value="${u}">${u}</option>`).join('');
+  document.getElementById('unit-body').innerHTML=`
+    <div class="fin-title">${d.label} Converter</div>
+    <div class="unit-row"><div class="field"><label>Value</label><input type="number" id="uval" placeholder="Enter value" oninput="convertUnit()"/></div><div class="field"><label>From</label><select id="ufrom" onchange="convertUnit()">${opts}</select></div></div>
+    <div class="unit-row"><div></div><div class="field"><label>To</label><select id="uto" onchange="convertUnit()">${opts}</select></div></div>
+    <button class="swap-btn" onclick="swapUnits()">⇅ Swap units</button>
+    <div id="uout"></div>`;
+  if(d.units.length>1) document.getElementById('uto').value=d.units[1];
+}
+function swapUnits(){ const f=document.getElementById('ufrom'),t=document.getElementById('uto'),tmp=f.value; f.value=t.value; t.value=tmp; convertUnit(); }
+function convertUnit(){
+  const val=parseFloat(document.getElementById('uval').value),from=document.getElementById('ufrom').value,to=document.getElementById('uto').value,out=document.getElementById('uout');
+  if(isNaN(val)){out.innerHTML='';return;}
+  let result;
+  if(curUnit==='temp'){
+    let c; if(from==='Celsius')c=val; else if(from==='Fahrenheit')c=(val-32)*5/9; else c=val-273.15;
+    if(to==='Celsius')result=c; else if(to==='Fahrenheit')result=c*9/5+32; else result=c+273.15;
+  }else{ const d=unitDefs[curUnit]; result=(val*d.toBase[from])/d.toBase[to]; }
+  const display=parseFloat(result.toPrecision(8));
+  out.innerHTML=`<div class="unit-result-bar"><div class="urb-val">${display.toLocaleString('en-IN')}</div><div class="urb-unit">${to}</div></div>`;
+}
+
+/* ── HISTORY ── */
+let history=[];
+function addHistory(expr,res,type){ history.unshift({expr,res:parseFloat(res.toPrecision(10)),type,time:new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}); if(history.length>60)history.pop(); }
+function renderHistory(){
+  const el=document.getElementById('hist-list');
+  if(!history.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div><div>No calculations yet</div></div>';return;}
+  el.innerHTML=history.map((h,i)=>`
+    <div class="hist-item" onclick="useHistory(${i})">
+      <div class="hist-expr">${h.expr}</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+        <div class="hist-res">${typeof h.res==='number'?h.res.toLocaleString('en-IN'):h.res}</div>
+        <div class="hist-tag">${h.time}</div>
+      </div>
+    </div>`).join('');
+}
+function useHistory(i){ cur=String(history[i].res); hasRes=true; document.getElementById('display').textContent=cur; document.getElementById('expr').textContent=''; switchTab('basic',document.querySelector('.tab')); }
+function clearHistory(){ history=[]; renderHistory(); }
+
+/* ── INIT ── */
+populateCurrencySelects();
+curUnit='length'; renderUnit();
+</script>
+</body>
+</html>
